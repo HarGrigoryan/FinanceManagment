@@ -1,15 +1,15 @@
-public class Event 
+public final class Event implements Cloneable
 {
 	private String description;
 	private Choice[] choices;
 	
 	public Event()
 	{
-		description = "No description yet"
+		description = "No description yet";
 		choices = null;
 	}
 	
-	public Event(Strint d, Choice[] c)
+	public Event(String d, Choice[] c)
 	{
 		description = d;
 		choices = new Choice[c.length];
@@ -33,4 +33,25 @@ public class Event
 		}
 		return t;
 	}
+	
+	public Event clone()
+	{
+		try
+		{
+			Event e = (Event) super.clone();
+			Choice[] temp = new Choice[choices.length];
+			for ( int i = 0; i < temp.length; i++)
+			{
+				temp[i] = choices[i].clone();
+			}
+			e.choices = temp;
+			return e;
+		}
+		catch(CloneNotSupportedException e)
+		{
+			return null;
+			
+		}
+	}
+
 }

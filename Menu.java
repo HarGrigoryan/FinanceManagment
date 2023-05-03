@@ -1,4 +1,4 @@
-public class Menu
+public final class Menu
 {
 	
 }

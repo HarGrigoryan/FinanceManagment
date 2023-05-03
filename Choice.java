@@ -1,4 +1,5 @@
-public class Choice {
+public final class Choice implements Cloneable, Comparable<Choice>
+{
 	
 	private String text;
 	private int qolIndex;
@@ -18,19 +19,62 @@ public class Choice {
 		money = m;
 	}
 	
-	public String getText()
+	public final String getText()
 	{
 		return text;
 	}
 	
-	public int getQolIndex()
+	public final int getQolIndex()
 	{
 		return qolIndex;
 	}
 	
-	public double getMoney()
+	public final double getMoney()
 	{
 		return money;
 	}
+	
+	public Choice clone()
+	{
+		try
+		{
+			return (Choice) super.clone();
+			
+		}
+		catch(CloneNotSupportedException e)
+		{
+			return null;
+			
+		}
+	
+	}
+	
+	public String toString()
+	{
+		return (text); //+ "\nQualityOfLife index :" + numberToSignedString(qolIndex) + "\nBalance :" + numberToSignedString(money));
+	}
+	
+	public static String numberToSignedString(double n)
+	{
+		if(n > 0)
+			return "+" + n;
+		return n+"";
+	}
+	
+	public boolean equals(Object o)
+	{
+		if( o==null )
+			return false;
+		if( this.getClass() != o.getClass() )
+			return false;
+		Choice t = (Choice)o;
+		return (this.text.equals(t.text)) && (this.qolIndex == t.qolIndex) && (this.money == t.money);
+	}
+	
+	public int compareTo(Choice c)
+	{
+		return this.text.compareTo(c.text);
+	}
+	
 	
 }

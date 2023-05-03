@@ -18,7 +18,7 @@ public class Player
 	{
 		savings = s;
 		monthlySalary = mS;
-		monthlyExpenses = ME;
+		monthlyExpenses = mE;
 		qol = q;
 		
 	}
