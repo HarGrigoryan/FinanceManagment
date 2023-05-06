@@ -1,30 +1,30 @@
 public class Player 
 {
-	private int savings;
+	private int balance;
 	private int qol;
 	Level l;
 	
 	public Player(Level l)
 	{
 		this.l = l; 
-		savings = l.getSavings();
+		balance = l.getSavings();
 		qol = l.getInitialQol();
 		
 	}
 	
-	public void setSavings (int s)
+	public void changeBalance(int s)
 	{
-		savings = s;
+		balance += s;
 	}
 	
-	public void setQol(int q)
+	public void changeQol(int q)
 	{
-		qol = q;
+		qol += q;
 	}
 	
-	public double getSavings()
+	public double getBalance()
 	{
-		return savings;
+		return balance;
 	}
 	
 	public double getMonthlySalary()

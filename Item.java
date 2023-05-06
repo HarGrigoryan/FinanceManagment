@@ -1,24 +1,12 @@
-public final class Item
+public abstract class Item implements Comparable<Item>
 {
 	private String name;
-	private double cost;
-	private int qol;
+	private int cost;
 	
-	public Item(double c, int q, String n)
+	protected Item(String n, int c)
 	{
 		name = n;
 		cost = c;
-		qol = q;
-	}
-	
-	public double getCost()
-	{
-		return cost;
-	}
-	
-	public int getQol()
-	{
-		return qol;
 	}
 	
 	public String getName()
@@ -26,8 +14,33 @@ public final class Item
 		return name;
 	}
 	
+	public int getCost()
+	{
+		return cost;
+	}
+	
 	public String toString()
 	{
-		return name + " QOL: " + qol + " Cost: $" + cost; 
+		return name;
 	}
+	
+	public int compareTo(Item i)
+	{
+		return this.name.compareTo(i.name);
+	}
+	
+	public boolean equals(Object o)
+	{
+		if( o == null )
+			return false;
+		else if( this.getClass() != o.getClass() )
+			return false;
+		else
+		{
+			Item i = (Item) o;
+			return this.name.equals(i.name) && (this.cost == i.cost);
+		}
+	}
+	
+	protected abstract void action(Player p);
 }
