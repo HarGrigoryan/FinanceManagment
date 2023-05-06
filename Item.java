@@ -1,3 +1,5 @@
+import java.util.*;
+import java.io.*;
 public abstract class Item implements Comparable<Item>
 {
 	private String name;
@@ -40,6 +42,38 @@ public abstract class Item implements Comparable<Item>
 			Item i = (Item) o;
 			return this.name.equals(i.name) && (this.cost == i.cost);
 		}
+	}
+	
+	public static Item[] readItems(String path, boolean isBonus)
+	{
+		Scanner sc = null;
+		try
+		{
+			sc = new Scanner(new FileInputStream(path));
+		}
+		catch(IOException e)
+		{
+			System.out.println("Error:" + e.getMessage());
+			System.exit(0);
+		}
+		int size = sc.nextInt();
+		Item[] items = new Item[size];
+		int i = 0;
+		while(sc.hasNextLine())
+		{
+			String itemString = sc.nextLine();
+			String[] itemElements = itemString.split(" ");
+			if(isBonus)
+			{
+				items[i] = new BonusItem(itemElements[0], Integer.parseInt(itemElements[1]), Integer.parseInt(itemElements[2])); 
+			}				
+			else
+			{
+				items[i] = new SimpleItem(itemElements[0], Integer.parseInt(itemElements[1])); 
+			}
+			i++;
+		}
+		return items;
 	}
 	
 	protected abstract void action(Player p);

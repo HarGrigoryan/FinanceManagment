@@ -43,4 +43,9 @@ public enum Level
 	{
 		return monthlyExpenses;
 	}
+	
+	public String displayLevel()
+	{
+		return this + "\nMonthly salary: " + monthlySalary + "\nMonthly Expenses: " + monthlyExpenses + "\n QOL required to win: " + requiredQOl;
+	}
 }

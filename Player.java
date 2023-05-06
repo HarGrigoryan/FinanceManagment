@@ -46,4 +46,9 @@ public class Player
 	{
 		return l.getRequiredQol();
 	}
+	
+	public String toString()
+	{
+		return "Balance: " + balance + "QOL " + qol + l;
+	}
 }
