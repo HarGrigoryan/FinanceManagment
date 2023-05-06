@@ -1,32 +1,25 @@
 public class Player 
 {
-	private double savings;
-	private double monthlySalary;
-	private double monthlyExpenses;
-	private float qol;
+	private int savings;
+	private int qol;
+	Level l;
 	
-	public Player()
+	public Player(Level l)
 	{
-		savings = 0;
-		monthlySalary = 0;
-		monthlyExpenses = 0;
-		qol = 0;
+		this.l = l; 
+		savings = l.getSavings();
+		qol = l.getInitialQol();
 		
 	}
 	
-	public Player( double s, double mS, double mE, float q)
+	public void setSavings (int s)
 	{
 		savings = s;
-		monthlySalary = mS;
-		monthlyExpenses = mE;
+	}
+	
+	public void setQol(int q)
+	{
 		qol = q;
-		
-	}
-	
-	public void setSavings (double s)
-	{
-		savings = s;
-		
 	}
 	
 	public double getSavings()
@@ -36,22 +29,21 @@ public class Player
 	
 	public double getMonthlySalary()
 	{
-		return monthlySalary;
+		return l.getMonthlySalary();
 	}
 	
 	public double getMonthlyExpenses()
 	{
-		return monthlyExpenses;
+		return getMonthlyExpenses();
 	}
 	
-	public void setQol(float q)
-	{
-		qol = q;
-	}
-	
-	public float getQol()
+	public int getQol()
 	{
 		return qol;
 	}
 	
+	public int getRequiredQol()
+	{
+		return l.getRequiredQol();
+	}
 }

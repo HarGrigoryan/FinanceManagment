@@ -53,5 +53,12 @@ public final class Event implements Cloneable
 			
 		}
 	}
-
+	
+	public String toString()
+	{
+		StringBuilder b = new StringBuilder("");
+		for(int i = 0; i < choices.length; i++)
+			b.append(choices[i].toString() +"\n");
+		return description + "\n" + b.toString();
+	}
 }
