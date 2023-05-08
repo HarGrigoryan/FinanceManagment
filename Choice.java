@@ -51,8 +51,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	public String toString()
 	{
-		return (text + " QOL
-		index :" + numberToSignedString(qolIndex) + " Balance :" + numberToSignedString(money));
+		return (text + " QOL index :" + numberToSignedString(qolIndex) + " Balance :" + numberToSignedString(money));
 	}
 	
 	public static String numberToSignedString(double n)
