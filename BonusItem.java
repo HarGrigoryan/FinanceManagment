@@ -17,6 +17,7 @@ public class BonusItem extends Item
 	{
 		p.changeBalance(this.getCost());
 		p.changeQol(qolBonus);
+		System.out.println("bonus item selected");
 	}
 	
 	public boolean equals(Object o)

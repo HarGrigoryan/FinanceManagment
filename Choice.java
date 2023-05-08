@@ -3,7 +3,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	private String text;
 	private int qolIndex;
-	private double money;
+	private int money;
 	
 	public Choice()
 	{
@@ -12,7 +12,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 		money = 0;
 	}
 	
-	public Choice(String t, int q, double m)
+	public Choice(String t, int q, int m)
 	{
 		text = t;
 		qolIndex = q;
@@ -51,8 +51,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	public String toString()
 	{
-		return (text + " QOL
-		index :" + numberToSignedString(qolIndex) + " Balance :" + numberToSignedString(money));
+		return (text + " QOL index :" + numberToSignedString(qolIndex) + " Balance :" + numberToSignedString(money));
 	}
 	
 	public static String numberToSignedString(double n)

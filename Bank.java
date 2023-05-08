@@ -30,7 +30,7 @@ public final class Bank
 	
 	public double getMoney()
 	{
-		if(time >= 1)
+		if(numberOfYears >= 1)
 			return moneyDeposited + ((moneyDeposited * rateForLong) * numberOfYears);
 		else 
 			return moneyDeposited + ((moneyDeposited * rateForShort) * numberOfYears);

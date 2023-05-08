@@ -1,5 +1,5 @@
-public final class Menu
+/*public final class Menu
 {
 	private Bank b;
 	private 
-}
+}*/

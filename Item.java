@@ -44,7 +44,7 @@ public abstract class Item implements Comparable<Item>
 		}
 	}
 	
-	public static Item[] readItems(String path, boolean isBonus)
+	public static Item[] readItems(String path)
 	{
 		Scanner sc = null;
 		try
@@ -57,17 +57,18 @@ public abstract class Item implements Comparable<Item>
 			System.exit(0);
 		}
 		int size = sc.nextInt();
+		sc.nextLine();
 		Item[] items = new Item[size];
 		int i = 0;
 		while(sc.hasNextLine())
 		{
 			String itemString = sc.nextLine();
 			String[] itemElements = itemString.split(" ");
-			if(isBonus)
+			if(itemElements.length == 3)
 			{
 				items[i] = new BonusItem(itemElements[0], Integer.parseInt(itemElements[1]), Integer.parseInt(itemElements[2])); 
 			}				
-			else
+			else if (itemElements.length == 2)
 			{
 				items[i] = new SimpleItem(itemElements[0], Integer.parseInt(itemElements[1])); 
 			}

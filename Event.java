@@ -1,5 +1,6 @@
 public final class Event implements Cloneable
 {
+	
 	private String description;
 	private Choice[] choices;
 	

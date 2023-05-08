@@ -1,4 +1,4 @@
-import java.util.Scanner;
+/*import java.util.Scanner;
 
 public final class GameControler 
 {
@@ -36,7 +36,8 @@ public final class GameControler
 		}
 		else if(r2.equalsIgnoreCase("education"))
 		{
-			g = Goal.EDUCATION;
+			g = Goal.
+			EDUCATION;
 		}
 		else if(r2.equalsIgnoreCase("house"))
 		{
@@ -68,4 +69,4 @@ public final class GameControler
 		GameControler g = new GameControler();
 		g.play();
 	}
-}
+}*/

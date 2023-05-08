@@ -1,4 +1,4 @@
-public class Player 
+public class Player implements Cloneable
 {
 	private int balance;
 	private int qol;
@@ -22,7 +22,7 @@ public class Player
 		qol += q;
 	}
 	
-	public double getBalance()
+	public int getBalance()
 	{
 		return balance;
 	}
@@ -50,5 +50,18 @@ public class Player
 	public String toString()
 	{
 		return "Balance: " + balance + "QOL " + qol + l;
+	}
+	
+	public Player clone()
+	{
+		try
+		{
+			return (Player) super.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 }
