@@ -46,6 +46,11 @@ public enum Level
 	
 	public String displayLevel()
 	{
-		return this + "\nMonthly salary: " + monthlySalary + "\nMonthly Expenses: " + monthlyExpenses + "\n QOL required to win: " + requiredQOl;
+		return this + " Monthly salary: " + monthlySalary + " Monthly Expenses: " + monthlyExpenses + " QOL required to win: " + requiredQOl;
+	}
+	
+	public static String getInformation()
+	{
+		return EASY.displayLevel() + " " + MEDIUM.displayLevel() +" "+ HARD.displayLevel();
 	}
 }
