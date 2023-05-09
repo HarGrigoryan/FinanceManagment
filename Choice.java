@@ -3,7 +3,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	private String text;
 	private int qolIndex;
-	private double money;
+	private int money;
 	
 	public Choice()
 	{
@@ -75,6 +75,9 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	{
 		return this.text.compareTo(c.text);
 	}
-	
+	public void choiceResult(Player p){
+		p.changeBalance(money);
+		p.changeQol(qolIndex);
+	}
 	
 }
