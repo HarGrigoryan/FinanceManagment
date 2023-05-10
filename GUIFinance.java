@@ -35,6 +35,7 @@ public class GUIFinance extends JFrame
         Dimension screenSize = tk.getScreenSize(); 
         setSize(screenSize.width,screenSize.height);
 		setVisible(true);
+		JOptionPane.showMessageDialog(null, "Hello dear player, welcome to The Finance Game that helps you understand how to manage finances as a part of a family. In the game, you choose the level to play and work together with your family to achieve your financial goals.", null, JOptionPane.INFORMATION_MESSAGE);
 		String character = JOptionPane.showInputDialog(null, "Choose the character to play as. Type in mom or dad:");
 		if(character.equalsIgnoreCase("dad"))
 			setBackgroundImage("2.jpg");
@@ -46,7 +47,6 @@ public class GUIFinance extends JFrame
 		bank = new Bank();
 		time = 0;
         add(setMenu(), BorderLayout.NORTH);
-		JOptionPane.showMessageDialog(null, "Hello dear player, welcome to The Finance Game that helps you understand how to manage finances as a part of a family. In the game, you choose the level to play and work together with your family to achieve your financial goals.", null, JOptionPane.INFORMATION_MESSAGE);
 		player = new Player(Level.valueOf((JOptionPane.showInputDialog(this, "Please select the game's level of difficulty:\n" + Level.getInformation())).toUpperCase()));
 		balanceLabel = new JLabel("Balance: " + player.getBalance());	
 		qolLabel = new JLabel("QOL: " + player.getQol());
