@@ -51,15 +51,9 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	public String toString()
 	{
+
 		return (text + " QOL index :" + qolIndex + " Balance :" + money);
 	}
-	
-	/*public static String numberToSignedString(double n)
-	{
-		if(n > 0)
-			return "+" + n;
-		return "-" +n;
-	}*/
 	
 	public void choiceResult(Player p)
 	{
@@ -81,6 +75,4 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	{
 		return this.text.compareTo(c.text);
 	}
-	
-	
 }
