@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-public abstract class Item implements Comparable<Item>
+public abstract class Item
 {
 	private String name;
 	private int cost;
@@ -24,11 +24,6 @@ public abstract class Item implements Comparable<Item>
 	public String toString()
 	{
 		return name;
-	}
-	
-	public int compareTo(Item i)
-	{
-		return this.name.compareTo(i.name);
 	}
 	
 	public boolean equals(Object o)

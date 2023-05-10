@@ -1,11 +1,11 @@
 10 
 Luxury_Clothes 30
-Laptop 300 3
-Phone 170
-Tools 15 1
-Eating_Out 18
-Washing_Machine 140 2
-Vacation 150
-Jewelery 70
+Laptop 500 3
+Phone 450
+Tools 100 1
+Eating_Out 25
+Washing_Machine 200 2
+Vacation 2000
+Jewelery 90
 TV 150 1
-Dishwasher 155 2
+Dishwasher 180 2

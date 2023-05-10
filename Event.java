@@ -1,3 +1,5 @@
+import java.util.Scanner;
+import java.io.*;
 public final class Event implements Cloneable
 {
 	
@@ -35,31 +37,45 @@ public final class Event implements Cloneable
 		return t;
 	}
 	
-	public Event clone()
-	{
-		try
-		{
-			Event e = (Event) super.clone();
-			Choice[] temp = new Choice[choices.length];
-			for ( int i = 0; i < temp.length; i++)
-			{
-				temp[i] = choices[i].clone();
-			}
-			e.choices = temp;
-			return e;
-		}
-		catch(CloneNotSupportedException e)
-		{
+	public static Event[] eventReader(String filePath)
+	{ 
+
+        try 
+        {
+            Scanner scanner = new Scanner(new FileInputStream(filePath));
+            Event[] events = new Event[scanner.nextInt()];
+			scanner.nextLine();
+			int i = 0;
+            while (i < events.length) 
+            {
+				String eventLine = scanner.nextLine();
+				int j = 0;
+				Choice[] choices = new Choice[2];
+				while(j < 2)
+				{
+					String choiceLine = scanner.nextLine();
+					String[] parts = choiceLine.split(":");
+					choices[j] = new Choice(parts[0], Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+					j++;
+				}
+				events[i] = new Event(eventLine,choices );
+				i++;
+            }
+            scanner.close();
+			return events;
+        } 
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found: " + filePath);
 			return null;
-			
-		}
-	}
+        }
+    }
 	
 	public String toString()
 	{
 		StringBuilder b = new StringBuilder("");
-		for(int i = 0; i < choices.length; i++)
-			b.append(choices[i].toString() +"\n");
+		for(int i = 1; i <= choices.length; i++)
+			b.append(i + ") " + choices[i-1].toString() +"\n");
 		return description + "\n" + b.toString();
 	}
 }

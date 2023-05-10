@@ -12,12 +12,18 @@ public class Player implements Cloneable
 		
 	}
 	
-	public void changeBalance(int s)
+	public boolean win()
+	{
+		return qol >= l.getRequiredQol();
+	}
+	
+	
+	void changeBalance(int s)
 	{
 		balance += s;
 	}
 	
-	public void changeQol(int q)
+	void changeQol(int q)
 	{
 		qol += q;
 	}
@@ -27,12 +33,17 @@ public class Player implements Cloneable
 		return balance;
 	}
 	
-	public double getMonthlySalary()
+	public int getMonthlySalary()
 	{
 		return l.getMonthlySalary();
 	}
 	
-	public double getMonthlyExpenses()
+	void update()
+	{
+		balance += 12 * l.getMonthlyIncrease(); 
+	}
+	
+	public int getMonthlyExpenses()
 	{
 		return getMonthlyExpenses();
 	}

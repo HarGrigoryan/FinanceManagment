@@ -13,13 +13,13 @@ public enum Goal
 		qolIncrease = qI;
 	}
 	
-	public String acomplishGoal(Player p)
+	public String accomplishGoal(Player p)
 	{
 		if( p.getBalance() >= moneyRequired)
 		{
 			p.changeBalance(-1 * this.moneyRequired);
 			p.changeQol(this.qolIncrease);
-			return "Congratulations You Have Accomplished Your Goal With The Following Properties" + display();
+			return "Congratulations You Have Accomplished Your Goal With The Following Properties " + display();
 		}
 		else 
 		{

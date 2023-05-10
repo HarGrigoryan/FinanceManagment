@@ -2,7 +2,7 @@ public enum Level
 {
 	EASY(5000, 1500, 25, 75, 900),
 	MEDIUM(3000, 1000, 20, 65, 700),
-	HARD(1000, 600, 15, 55, 500);
+	HARD(1000, 700, 15, 55, 500);
 	
 	private int savings;
 	private int monthlySalary;
@@ -44,13 +44,18 @@ public enum Level
 		return monthlyExpenses;
 	}
 	
+	public int getMonthlyIncrease()
+	{
+		return monthlySalary - monthlyExpenses;
+	}
+	
 	public String displayLevel()
 	{
-		return this + " Monthly salary: " + monthlySalary + " Monthly Expenses: " + monthlyExpenses + " QOL required to win: " + requiredQOl;
+		return this + " Monthly salary: " + monthlySalary + " Monthly Expenses: " + monthlyExpenses + " QOL required to win: " + requiredQOl + "\n";
 	}
 	
 	public static String getInformation()
 	{
-		return EASY.displayLevel() + " " + MEDIUM.displayLevel() +" "+ HARD.displayLevel();
+		return "\n" + EASY.displayLevel() + "\n" + MEDIUM.displayLevel() + "\n" + HARD.displayLevel();
 	}
 }

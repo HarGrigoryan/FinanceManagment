@@ -1,16 +1,10 @@
-public final class Choice implements Cloneable, Comparable<Choice>
+public final class Choice implements Cloneable
 {
 	
 	private String text;
 	private int qolIndex;
 	private int money;
-	
-	public Choice()
-	{
-		text = "No text yet";
-		qolIndex = 0;
-		money = 0;
-	}
+
 	
 	public Choice(String t, int q, int m)
 	{
@@ -19,17 +13,17 @@ public final class Choice implements Cloneable, Comparable<Choice>
 		money = m;
 	}
 	
-	public final String getText()
+	public String getText()
 	{
 		return text;
 	}
 	
-	public final int getQolIndex()
+	public int getQolIndex()
 	{
 		return qolIndex;
 	}
 	
-	public final double getMoney()
+	public int getMoney()
 	{
 		return money;
 	}
@@ -52,7 +46,7 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	public String toString()
 	{
 
-		return (text + " QOL index :" + qolIndex + " Balance :" + money);
+		return text;
 	}
 	
 	public void choiceResult(Player p)
@@ -70,9 +64,5 @@ public final class Choice implements Cloneable, Comparable<Choice>
 		Choice t = (Choice)o;
 		return (this.text.equals(t.text)) && (this.qolIndex == t.qolIndex) && (this.money == t.money);
 	}
-	
-	public int compareTo(Choice c)
-	{
-		return this.text.compareTo(c.text);
-	}
+
 }
