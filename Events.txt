@@ -1,0 +1,10 @@
+3
+You get a call from your daughter, who tells you that your grandma has fallen and broken her leg. Grandma lives alone in a small town, and you are worried about her. You need to make an important decision:
+Hire a nurse to look after the grandma:5:-100
+Go to look after her yourself:-2:0
+You wake up by the sound of the smoke alarm going off. You jump out of bed and see that the house is on fire. You all evacuate the house. Now, you need to decide on your accommodation:
+Rent a house:5:-300
+Live in a half-burned house:-2:-50
+As the dad's 50th birthday approaches the family hesitate to celebrate the memorable event. There are two possible scenarios as an outcome:
+Family gathering in a restaurant:8:-120
+Do not celebrate:-2:0

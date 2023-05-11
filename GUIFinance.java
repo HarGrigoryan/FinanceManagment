@@ -14,104 +14,191 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 
-public class GUIFinance extends JFrame{
-	private Event event;
+public class GUIFinance extends JFrame
+{
+	private Event[] events;
 	private Player player;
 	private Item[] items;
 	private Goal goal;
+	private Bank bank;
+	private JLabel balanceLabel;
+	private JLabel qolLabel;
+	private JPanel labelsButtons;
+	private int time;
+	private boolean isAccomplished;
+	private String errorMessage;
 
-	// public GUIFinance(){
-	// 	super("Finance management");
-    //     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    //     setSize(500, 400);
-	// }
-    
-    public GUIFinance() {
+    public GUIFinance()
+	{
         super("Finance Management");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
-
-        add(setMenu());   
-        add(setButtons(), BorderLayout.NORTH);
-    	add(setNext(), BorderLayout.SOUTH);
-    	// if()
-    	// 	setBackgroundImage("1.jpg");
-    	// else 
-    	// 	setBackgroundImage("2.jpg");
-        setVisible(true);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tk.getScreenSize(); 
+        setSize(screenSize.width,screenSize.height);
+		setVisible(true);
+		JOptionPane.showMessageDialog(null, "Hello dear player, welcome to The Finance Game that helps you understand how to manage finances as a part of a family. In the game, you choose the level to play and work together with your family to achieve your financial goals.", null, JOptionPane.INFORMATION_MESSAGE);
+		String character = JOptionPane.showInputDialog(null, "Choose the character to play as. Type in mom or dad:");
+		if(character == null)
+			System.exit(0);
+		else if(character.equalsIgnoreCase("dad"))
+			setBackgroundImage("2.jpg");
+		else if (character.equalsIgnoreCase("mom")) 
+			setBackgroundImage("1.jpg");
+		setVisible(true);
+		events = Event.eventReader("Events.txt");
+		items = Item.readItems("Items.txt");
+		bank = new Bank();
+		time = 0;
+        add(setMenu(), BorderLayout.NORTH);
+		String level =  JOptionPane.showInputDialog(this, "Please select the game's level of difficulty:\n" + Level.getInformation());
+		if (level == null)
+			System.exit(0);
+		player = new Player(Level.valueOf(level.toUpperCase()));
+		balanceLabel = new JLabel("Balance: " + player.getBalance());	
+		qolLabel = new JLabel("QOL: " + player.getQol());
+		JPanel labelsButtons = new JPanel(new GridLayout(1,3));
+		labelsButtons.add(setLabels());
+		labelsButtons.add(setButtons());
+		add(labelsButtons, BorderLayout.SOUTH);
+		String goalChoice = JOptionPane.showInputDialog(null, "Now as a part of the family you need to have goals , your goals can be one of the following: \n\nDown payment for a new " + Goal.HOUSE.display() + " (type in house) \n\nNew " + Goal.CAR.display() + " for the family (type in car) \n\nFinancially helping the kids for " + Goal.EDUCATION.display() + " (type in education)");
+		if( goalChoice == null)
+			System.exit(0);
+		goal = Goal.valueOf(goalChoice.toUpperCase());
+		setVisible(true);
     }
-    
-    public void setBackgroundImage(String imagePath) {
-        try {
+	
+    private void setBackgroundImage(String imagePath) {
+        try 
+		{
             BufferedImage image = ImageIO.read(new File(imagePath));
             JLabel backgroundLabel = new JLabel(new ImageIcon(image));
             backgroundLabel.setLayout(new BorderLayout());
-            setContentPane(backgroundLabel);
-        } catch (IOException e) {
+            add(backgroundLabel);
+        } 
+		catch (IOException e) {
             System.out.println("Error setting background image: " + e.getMessage());
         }
     }
-    public JPanel setMenu(){
-    	JPanel menu =  new JPanel();
+	
+    private JMenuBar setMenu()
+	{
     	JMenuBar menuBar = new JMenuBar();
         JMenu shopMenu = new JMenu("Shop");
-        JMenu bankMenu = new JMenu("Bank");
-        JMenu infoMenu = new JMenu("Info");
+		for ( int i = 0; i < items.length; i++)
+		{
+			Item item = items[i];
+			JMenuItem shopItem = new JMenuItem(item.getName());
+			shopItem.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					item.action(player);	
+					updateJLabels();
+				}
+			});
+        	shopMenu.add(shopItem);
+		}
         menuBar.add(shopMenu);
-        menuBar.add(bankMenu);
-        menuBar.add(infoMenu);
-        return menu;
-        //setJMenu(menuBar);
+        return menuBar;
 
     }
-    public JPanel setButtons(){
-    JPanel buttons =  new JPanel(new GridLayout(1, 3));
-        
-    JLabel balanceButton = new JLabel("Balance");
-    buttons.add(balanceButton);
-
-    JLabel qolButton = new JLabel("QOL");
-    
-    buttons.add(qolButton);
-
-    JButton forward = new JButton("Forward >");
-    JButton accomplishButton = new JButton("Accomplish Goal"); 
-    accomplishButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        //add
-      }
-    });
-    buttons.add(accomplishButton);
-        
-    return buttons;
-
+	
+    private JPanel setButtons()
+	{
+		JPanel buttons =  new JPanel(new GridLayout(1, 3));
+		JButton accomplishButton = new JButton("Accomplish Goal"); 
+		accomplishButton.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+			String out = goal.accomplishGoal(player); 
+			JOptionPane.showMessageDialog(null, out, null, JOptionPane.INFORMATION_MESSAGE);
+			if(out.startsWith("C"))
+				isAccomplished = true;
+			updateJLabels();
+			
+		}
+		});
+		buttons.add(accomplishButton);
+		JButton depositButton = new JButton("Deposit");
+		depositButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String moneyChoice = JOptionPane.showInputDialog(null, "Enter the amount of money you want to deposit:");
+				int inputMoney = 0, years =0;
+				if ( moneyChoice != null)
+				{
+					inputMoney = Integer.parseInt(moneyChoice);
+					String yearChoice =  JOptionPane.showInputDialog(null, "Enter the number of years you want to deposit:");
+					if (yearChoice != null)
+						years = Integer.parseInt(yearChoice);
+				}
+				if(inputMoney != 0 && years != 0)
+				{
+					bank = new Bank(inputMoney, years);
+					player.changeBalance(-1 * inputMoney);
+					updateJLabels();
+				}
+			}
+		});
+		buttons.add(depositButton);
+    	JButton nextButton = new JButton("Next");
+    	nextButton.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) 
+		  {
+			if(time == 3)
+			{
+				String s = "";
+				if(!isAccomplished)
+				{
+					if(player.getBalance() >= goal.getMoneyRequired())
+						goal.accomplishGoal(player);
+					else
+					{
+						s = "Sorry you lost";
+						JOptionPane.showMessageDialog(null, s, null, JOptionPane.INFORMATION_MESSAGE);
+						System.exit(0);
+					}
+				}
+				if(player.win())
+					s = "Congratiulations you won!";
+				else
+					s = "Sorry you lost";
+				JOptionPane.showMessageDialog(null, s, null, JOptionPane.INFORMATION_MESSAGE);
+				System.exit(0);
+			}
+			else
+			{
+				Choice c = events[time].getChoices()[(Integer.parseInt(JOptionPane.showInputDialog(null, events[time])))-1];		
+				c.choiceResult(player);
+				time++;
+				if(time == bank.getNumberOfYears())
+				{
+					player.changeBalance(bank.getMoney());
+				}
+				player.update();
+				updateJLabels();
+			}
+		}
+		});
+    	buttons.add(nextButton);
+		return buttons;
     }
-    public JPanel setNext(){
-    	JPanel button =  new JPanel();
-    	JButton next= new JButton("Next");
-    	//button.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-    	add(next);
-    	return button;
-    }
+	
+	private void updateJLabels()
+	{
+		balanceLabel.setText("Balance: " + player.getBalance());
+		qolLabel.setText("QOL: " + player.getQol());
+	}
+	
+	private JPanel setLabels()
+	{
+		JPanel labels = new JPanel(new GridLayout(1,2));
+		labels.add(balanceLabel);
+		labels.add(qolLabel);
+		return labels;
+	}
 
-    public static void main(String[] args) {
-        
-        GUIFinance guiFinance = new GUIFinance();
+    public static void main(String[] args) 
+	{	
+		GUIFinance guiFinance = new GUIFinance();
+		guiFinance.setVisible(true);
     }
 }
-
-        // create menu items for each menu and add them to the menus
-        //shopItem1 = new JMenuItem("Item 1");
-        //shopItem2 = new JMenuItem("Item 2");
-        //shopMenu.add(shopItem1);
-        //shopMenu.add(shopItem2);
-        
-        //bankItem1 = new JMenuItem("Item 1");
-        //bankItem2 = new JMenuItem("Item 2");
-        //bankMenu.add(bankItem1);
-        //bankMenu.add(bankItem2);
-        
-        //infoItem1 = new JMenuItem("Item 1");
-        //infoItem2 = new JMenuItem("Item 2");
-        //infoMenu.add(infoItem1);
-        //infoMenu.add(infoItem2);

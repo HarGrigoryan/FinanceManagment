@@ -2,7 +2,7 @@ public enum Goal
 {
 	CAR (5000, 70),
 	EDUCATION(3000, 50),
-	HOUSE(1000, 100);
+	HOUSE(10000, 100);
 
 	private int moneyRequired;
 	private int qolIncrease;
@@ -13,7 +13,21 @@ public enum Goal
 		qolIncrease = qI;
 	}
 	
-	public double getMoneyRequired()
+	public String accomplishGoal(Player p)
+	{
+		if( p.getBalance() >= moneyRequired)
+		{
+			p.changeBalance(-1 * this.moneyRequired);
+			p.changeQol(this.qolIncrease);
+			return "Congratulations You Have Accomplished Your Goal With The Following Properties " + display();
+		}
+		else 
+		{
+			return "Sorry! $" + this.moneyRequired + " is required to accomplish the goal";
+		}
+	}
+	
+	public int getMoneyRequired()
 	{
 		return moneyRequired;
 	}
@@ -25,12 +39,7 @@ public enum Goal
 	
 	public String display()
 	{
-		return this + "\nMoney Required: " + moneyRequired + " QOL increase: " + qolIncrease;
-	}
-	
-	public static void main(String[] args)
-	{
-		System.out.print(CAR.display());
+		return this + ": Money Required: " + moneyRequired + ": QOL increase: " + qolIncrease;
 	}
 	
 }

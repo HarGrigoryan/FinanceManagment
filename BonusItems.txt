@@ -1,6 +1,0 @@
-5
-Laptop 300 3
-TV 150 1
-Tools 15 1
-Washing_Machine 140 2
-Dishwasher 155 2

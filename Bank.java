@@ -2,8 +2,8 @@ public final class Bank
 {
 	private int moneyDeposited;
 	private int numberOfYears; 
-	private static final float rateForLong = 0.045f;
-	private static final float rateForShort = 0.06f;
+	private static final int rateForLong = 4;
+	private static final int rateForShort = 6;
 	
 	public Bank()
 	{
@@ -17,41 +17,30 @@ public final class Bank
 		numberOfYears = nm;
 	}
 	
-	
-	public void setMoneyDeposited(int m)
+	public int getMoney()
 	{
-		moneyDeposited = m;
-	}
-	
-	public void setNumberOfYears(int n)
-	{
-		numberOfYears =  n;
-	}
-	
-	public double getMoney()
-	{
-		if(time >= 1)
-			return moneyDeposited + ((moneyDeposited * rateForLong) * numberOfYears);
+		if(numberOfYears >= 3)
+			return (int) (moneyDeposited + (((moneyDeposited * rateForLong) / 100) * numberOfYears));
 		else 
-			return moneyDeposited + ((moneyDeposited * rateForShort) * numberOfYears);
+			return (int) (moneyDeposited + (((moneyDeposited * rateForShort) / 100) * numberOfYears));
 	}
 	
-	public float getRateForLong()
+	public int getRateForLong()
 	{
 		return rateForLong;
 	}
 	
-	public float getRateForShort()
+	public int getRateForShort()
 	{
 		return rateForShort;
 	}
 
-	public double getMoneyDeposited()
+	public int getMoneyDeposited()
 	{
 		return moneyDeposited;
 	}
 	
-	public double getNumberOfYears()
+	public int getNumberOfYears()
 	{
 		return numberOfYears;
 	}

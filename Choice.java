@@ -1,35 +1,29 @@
-public final class Choice implements Cloneable, Comparable<Choice>
+public final class Choice implements Cloneable
 {
 	
 	private String text;
 	private int qolIndex;
 	private int money;
+
 	
-	public Choice()
-	{
-		text = "No text yet";
-		qolIndex = 0;
-		money = 0;
-	}
-	
-	public Choice(String t, int q, double m)
+	public Choice(String t, int q, int m)
 	{
 		text = t;
 		qolIndex = q;
 		money = m;
 	}
 	
-	public final String getText()
+	public String getText()
 	{
 		return text;
 	}
 	
-	public final int getQolIndex()
+	public int getQolIndex()
 	{
 		return qolIndex;
 	}
 	
-	public final double getMoney()
+	public int getMoney()
 	{
 		return money;
 	}
@@ -51,14 +45,14 @@ public final class Choice implements Cloneable, Comparable<Choice>
 	
 	public String toString()
 	{
-		return (text + " QOL index :" + numberToSignedString(qolIndex) + " Balance :" + numberToSignedString(money));
+
+		return text;
 	}
 	
-	public static String numberToSignedString(double n)
+	public void choiceResult(Player p)
 	{
-		if(n > 0)
-			return "+" + n;
-		return n+"";
+		p.changeBalance(money);
+		p.changeQol(qolIndex);
 	}
 	
 	public boolean equals(Object o)
@@ -70,14 +64,5 @@ public final class Choice implements Cloneable, Comparable<Choice>
 		Choice t = (Choice)o;
 		return (this.text.equals(t.text)) && (this.qolIndex == t.qolIndex) && (this.money == t.money);
 	}
-	
-	public int compareTo(Choice c)
-	{
-		return this.text.compareTo(c.text);
-	}
-	public void choiceResult(Player p){
-		p.changeBalance(money);
-		p.changeQol(qolIndex);
-	}
-	
+
 }

@@ -7,6 +7,6 @@ public class SimpleItem extends Item
 	
 	public void action(Player p)
 	{
-		p.changeBalance(this.getCost());
+		p.changeBalance(-1 * this.getCost());
 	}
 }

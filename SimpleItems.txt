@@ -1,4 +1,0 @@
-3
-Luxury_Clothes 30
-New_Phone 170
-Eating_Out 18
