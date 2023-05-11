@@ -132,7 +132,7 @@ public class GUIFinance extends JFrame
 				}
 				if(inputMoney != 0 && years != 0)
 				{
-					bank = new Bank(inputMoney, years);
+					bank = new Bank(inputMoney, years, time);
 					player.changeBalance(-1 * inputMoney);
 					updateJLabels();
 				}
@@ -169,7 +169,7 @@ public class GUIFinance extends JFrame
 				Choice c = events[time].getChoices()[(Integer.parseInt(JOptionPane.showInputDialog(null, events[time])))-1];		
 				c.choiceResult(player);
 				time++;
-				if(time == bank.getNumberOfYears())
+				if(time == bank.getTheYear() + bank.getNumberOfYears())
 				{
 					player.changeBalance(bank.getMoney());
 				}
