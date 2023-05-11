@@ -26,6 +26,7 @@ public class GUIFinance extends JFrame
 	private JPanel labelsButtons;
 	private int time;
 	private boolean isAccomplished;
+	private String errorMessage;
 
     public GUIFinance()
 	{
@@ -37,9 +38,11 @@ public class GUIFinance extends JFrame
 		setVisible(true);
 		JOptionPane.showMessageDialog(null, "Hello dear player, welcome to The Finance Game that helps you understand how to manage finances as a part of a family. In the game, you choose the level to play and work together with your family to achieve your financial goals.", null, JOptionPane.INFORMATION_MESSAGE);
 		String character = JOptionPane.showInputDialog(null, "Choose the character to play as. Type in mom or dad:");
-		if(character.equalsIgnoreCase("dad"))
+		if(character == null)
+			System.exit(0);
+		else if(character.equalsIgnoreCase("dad"))
 			setBackgroundImage("2.jpg");
-		else
+		else if (character.equalsIgnoreCase("mom")) 
 			setBackgroundImage("1.jpg");
 		setVisible(true);
 		events = Event.eventReader("Events.txt");
@@ -47,14 +50,20 @@ public class GUIFinance extends JFrame
 		bank = new Bank();
 		time = 0;
         add(setMenu(), BorderLayout.NORTH);
-		player = new Player(Level.valueOf((JOptionPane.showInputDialog(this, "Please select the game's level of difficulty:\n" + Level.getInformation())).toUpperCase()));
+		String level =  JOptionPane.showInputDialog(this, "Please select the game's level of difficulty:\n" + Level.getInformation());
+		if (level == null)
+			System.exit(0);
+		player = new Player(Level.valueOf(level.toUpperCase()));
 		balanceLabel = new JLabel("Balance: " + player.getBalance());	
 		qolLabel = new JLabel("QOL: " + player.getQol());
 		JPanel labelsButtons = new JPanel(new GridLayout(1,3));
 		labelsButtons.add(setLabels());
 		labelsButtons.add(setButtons());
 		add(labelsButtons, BorderLayout.SOUTH);
-		goal = Goal.valueOf((JOptionPane.showInputDialog(null, "Now as a part of the family you need to have goals , your goals can be one of the following: \nNew house (type in house) \nNew car for the family (type in car) \nFinancially helping the kids for education (type in education)")).toUpperCase());
+		String goalChoice = JOptionPane.showInputDialog(null, "Now as a part of the family you need to have goals , your goals can be one of the following: \n\nDown payment for a new " + Goal.HOUSE.display() + " (type in house) \n\nNew " + Goal.CAR.display() + " for the family (type in car) \n\nFinancially helping the kids for " + Goal.EDUCATION.display() + " (type in education)");
+		if( goalChoice == null)
+			System.exit(0);
+		goal = Goal.valueOf(goalChoice.toUpperCase());
 		setVisible(true);
     }
 	
@@ -112,11 +121,21 @@ public class GUIFinance extends JFrame
 		JButton depositButton = new JButton("Deposit");
 		depositButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  int inputMoney = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter the amount of money you want to deposit:"));
-			  int years = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter the number of years you want to deposit:"));
-			  bank = new Bank(inputMoney, years);
-			  player.changeBalance(-1*inputMoney);
-			  updateJLabels();
+				String moneyChoice = JOptionPane.showInputDialog(null, "Enter the amount of money you want to deposit:");
+				int inputMoney = 0, years =0;
+				if ( moneyChoice != null)
+				{
+					inputMoney = Integer.parseInt(moneyChoice);
+					String yearChoice =  JOptionPane.showInputDialog(null, "Enter the number of years you want to deposit:");
+					if (yearChoice != null)
+						years = Integer.parseInt(yearChoice);
+				}
+				if(inputMoney != 0 && years != 0)
+				{
+					bank = new Bank(inputMoney, years);
+					player.changeBalance(-1 * inputMoney);
+					updateJLabels();
+				}
 			}
 		});
 		buttons.add(depositButton);

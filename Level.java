@@ -1,8 +1,8 @@
 public enum Level
 {
-	EASY(5000, 1500, 25, 75, 900),
-	MEDIUM(3000, 1000, 20, 65, 700),
-	HARD(1000, 700, 15, 55, 500);
+	EASY(5000, 1500, 25, 80, 900),
+	MEDIUM(3000, 1000, 20, 70, 700),
+	HARD(1000, 700, 15, 60, 400);
 	
 	private int savings;
 	private int monthlySalary;
